@@ -4,12 +4,12 @@ namespace ConsoleApp3
 {
     public  abstract class SalaryDepartment
     {
-        public int salary = 0, overTimeHour = 0, fixedTime = 8, perHour = 1000;
+        public int salary = 0, totalHour = 0, fixedTime = 8;
         public string name;
 
         public abstract void Display();
 
-        public void salaryCounter(int bonus, int totalHour)
+        public void salaryCounter(int bonus, int overTimeHour, int perHour)
         {
             salary = fixedTime * perHour;
             totalHour = overTimeHour + fixedTime; // 2+8
@@ -20,7 +20,7 @@ namespace ConsoleApp3
                 salary += (perHour * overTimeHour);
             }
                 salary = salary + bonus;
-                Console.WriteLine("Bonus: {0}  TotalHour: {1} ",bonus,totalHour);
+                Console.WriteLine("Bonus: {0} \nTotalHour: {1}  \nPerHour: {2}  \nOverTime: {3}",bonus,totalHour,perHour,overTimeHour);
         }
     }
     
@@ -28,7 +28,7 @@ namespace ConsoleApp3
     {
         public override void Display()   
         {
-            Console.WriteLine("Name:  {0}  FixedTime:  {1}  PerHour  {2}",name,fixedTime,perHour);
+            Console.WriteLine("Name:  {0} \nFixedTime:  {1}",name,fixedTime);
             Console.WriteLine("Total salary of {0} is {1}",name,salary);
             Console.WriteLine("--------------------------------------------------------------------------");
             Console.WriteLine(" ");
@@ -39,17 +39,19 @@ namespace ConsoleApp3
     {
         static void Main(string[] args)
         {
-            Worker Guard = new Worker();
-            Guard.salaryCounter(120,6);
+            SalaryDepartment Guard = new Worker();
+            Guard.salaryCounter(120,6,1000);
             Guard.name = "Maqsood";
+            //Guard.perHour = 1000;
             Guard.Display();
 
 
             Worker Manager = new Worker();
-            Manager.salaryCounter(1000, 3);
+            Manager.salaryCounter(1000, 3,2000);
             Manager.name = "Bilaal";
-            Manager.perHour = 2000;
+            //Manager.perHour = 2000;
             Manager.Display();
+           
             
             Console.ReadKey();
         }
